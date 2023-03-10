@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -32,8 +33,9 @@ public class UserPrincipal implements UserDetails
 
     public static UserPrincipal createSuperUser()
     {
-        Set<GrantedAuthority> authorities = Set.of(SecurityUtils.convertToAuthority(Role.SYSTEM_MANAGER.name()));
 
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(SecurityUtils.convertToAuthority(Role.SYSTEM_MANAGER.name()));
         return UserPrincipal.builder()
                 .id(-1L)
                 .username("system-administrator")
